@@ -1,0 +1,6 @@
+.git
+.venv
+data/*.db
+**/__pycache__
+.pytest_cache
+INTERVIEW_NOTES.md
