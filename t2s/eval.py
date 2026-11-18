@@ -245,9 +245,12 @@ def main(argv: list[str] | None = None) -> int:
     t0 = time.perf_counter()
     rep = run(args.backend, args.max_attempts, args.questions.resolve(), args.db)
     args.out.mkdir(parents=True, exist_ok=True)
-    (args.out / "eval.md").write_text(to_markdown(rep), encoding="utf-8")
-    (args.out / "eval_results.json").write_text(json.dumps(rep, ensure_ascii=False, indent=2), encoding="utf-8")
-    with (args.out / "runs.jsonl").open("a", encoding="utf-8") as fh:   # experiment log, one line per run
+    lf = {"encoding": "utf-8", "newline": "\n"}   # same bytes on every OS
+    with (args.out / "eval.md").open("w", **lf) as fh:
+        fh.write(to_markdown(rep))
+    with (args.out / "eval_results.json").open("w", **lf) as fh:
+        fh.write(json.dumps(rep, ensure_ascii=False, indent=2))
+    with (args.out / "runs.jsonl").open("a", **lf) as fh:   # experiment log, one line per run
         fh.write(json.dumps({**rep["meta"], **rep["metrics"]}, ensure_ascii=False) + "\n")
     _log_mlflow(rep)
 
