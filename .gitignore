@@ -1,0 +1,16 @@
+# generated database (rebuilt by `python -m t2s.data`)
+data/*.db
+# local environments / caches
+.venv/
+venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+mlruns/
+*.egg-info/
+build/
+dist/
+.env
+# personal notes, never published
+INTERVIEW_NOTES.md
